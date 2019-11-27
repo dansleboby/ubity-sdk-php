@@ -1,18 +1,27 @@
 {
-    "name": "GIT_USER_ID/GIT_REPO_ID",
-    "description": "",
+    "name": "dansleboby/ubity-sdk-php",
+    "description": "The Ubity API SDK allows you to initiate calls, send text messages (SMS), retrieve call recordings, get a user's phone presence status, and a whole lot more.",
     "keywords": [
         "swagger",
         "php",
         "sdk",
-        "api"
+        "api",
+		"ubity"
     ],
-    "homepage": "http://swagger.io",
-    "license": "proprietary",
+    "homepage": "http://ubity.com",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Swagger and contributors",
             "homepage": "https://github.com/swagger-api/swagger-codegen"
+        },
+        {
+            "name": "Dansleboby",
+            "homepage": "https://github.com/dansleboby"
+        },
+        {
+            "name": "Ubity",
+            "homepage": "https://github.com/ubity"
         }
     ],
     "require": {
