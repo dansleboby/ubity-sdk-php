@@ -22,21 +22,7 @@ PHP 5.5 and later
 
 To install the bindings via [Composer](http://getcomposer.org/), add the following to `composer.json`:
 
-```
-{
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/dansleboby/ubity-sdk-php.git"
-    }
-  ],
-  "require": {
-    "dansleboby/ubity-sdk-php": "~1"
-  }
-}
-```
-
-Then run `composer install`
+Then run `composer require dansleboby/ubity-sdk-php "~1.0"`
 
 ### Manual Installation
 
