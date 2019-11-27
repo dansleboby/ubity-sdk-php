@@ -1,6 +1,10 @@
 # DISCLAMER
 > This SDK is not supported by Ubity!
 
+## API doc
+- Swagger: https://generator.swagger.io/?url=https://raw.githubusercontent.com/dansleboby/ubity-sdk-php/master/swagger.json
+- Original: https://doc-api-mtl.ubity.com/
+
 # SwaggerClient-php
 The Ubity API allows you to initiate calls, send text messages (SMS), retrieve call recordings, get a user's phone presence status, and a whole lot more.
 
