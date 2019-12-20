@@ -13,7 +13,7 @@
 /**
  * Ubity API
  *
- * The Ubity API allows you to initiate calls, send text messages (SMS), retrieve call recordings, get a user's phone presence status, and a whole lot more.
+ * *** DISCLAMER *** The SDK is not support by Ubity. The Ubity API allows you to initiate calls, send text messages (SMS), retrieve call recordings, get a user's phone presence status, and a whole lot more!
  *
  * OpenAPI spec version: 1.0
  * Contact: dev@ubity.com

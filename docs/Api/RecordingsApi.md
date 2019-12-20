@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**recordingPost**](RecordingsApi.md#recordingpost) | **POST** /recording | Get a specific call recording from and ID
 [**recordingsGet**](RecordingsApi.md#recordingsget) | **GET** /recordings | Get recordings list
 [**recordingsYearGet**](RecordingsApi.md#recordingsyearget) | **GET** /recordings/{year} | Get recordings list for specific year
-[**recordingsYearMonthDayOutGet**](RecordingsApi.md#recordingsyearmonthdayoutget) | **GET** /recordings/{year}/{month}/{day}/out | Get recordings list for specific for a day (with mp3)
+[**recordingsYearMonthDayDirectionGet**](RecordingsApi.md#recordingsyearmonthdaydirectionget) | **GET** /recordings/{year}/{month}/{day}/{direction} | Get recordings list for specific for a day (with mp3)
 [**recordingsYearMonthGet**](RecordingsApi.md#recordingsyearmonthget) | **GET** /recordings/{year}/{month} | Get recordings list for a specific month
 
 # **recordingPost**
@@ -166,8 +166,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **recordingsYearMonthDayOutGet**
-> \Swagger\Client\Model\RecordingList recordingsYearMonthDayOutGet($year, $month, $day)
+# **recordingsYearMonthDayDirectionGet**
+> \Swagger\Client\Model\RecordingList recordingsYearMonthDayDirectionGet($year, $month, $day, $direction)
 
 Get recordings list for specific for a day (with mp3)
 
@@ -191,12 +191,13 @@ $apiInstance = new Swagger\Client\Api\RecordingsApi(
 $year = 56; // int | Years (1900 to current year)
 $month = 56; // int | Month numeric 1 ot 12
 $day = 56; // int | Day numeric 1 ot 31
+$direction = "direction_example"; // string | out or in
 
 try {
-    $result = $apiInstance->recordingsYearMonthDayOutGet($year, $month, $day);
+    $result = $apiInstance->recordingsYearMonthDayDirectionGet($year, $month, $day, $direction);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling RecordingsApi->recordingsYearMonthDayOutGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling RecordingsApi->recordingsYearMonthDayDirectionGet: ', $e->getMessage(), PHP_EOL;
 }
 ?>
 ```
@@ -208,6 +209,7 @@ Name | Type | Description  | Notes
  **year** | **int**| Years (1900 to current year) |
  **month** | **int**| Month numeric 1 ot 12 |
  **day** | **int**| Day numeric 1 ot 31 |
+ **direction** | **string**| out or in |
 
 ### Return type
 

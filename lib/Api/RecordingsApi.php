@@ -12,7 +12,7 @@
 /**
  * Ubity API
  *
- * The Ubity API allows you to initiate calls, send text messages (SMS), retrieve call recordings, get a user's phone presence status, and a whole lot more.
+ * *** DISCLAMER *** The SDK is not support by Ubity. The Ubity API allows you to initiate calls, send text messages (SMS), retrieve call recordings, get a user's phone presence status, and a whole lot more!
  *
  * OpenAPI spec version: 1.0
  * Contact: dev@ubity.com
@@ -882,41 +882,43 @@ class RecordingsApi
     }
 
     /**
-     * Operation recordingsYearMonthDayOutGet
+     * Operation recordingsYearMonthDayDirectionGet
      *
      * Get recordings list for specific for a day (with mp3)
      *
      * @param  int $year Years (1900 to current year) (required)
      * @param  int $month Month numeric 1 ot 12 (required)
      * @param  int $day Day numeric 1 ot 31 (required)
+     * @param  string $direction out or in (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Swagger\Client\Model\RecordingList
      */
-    public function recordingsYearMonthDayOutGet($year, $month, $day)
+    public function recordingsYearMonthDayDirectionGet($year, $month, $day, $direction)
     {
-        list($response) = $this->recordingsYearMonthDayOutGetWithHttpInfo($year, $month, $day);
+        list($response) = $this->recordingsYearMonthDayDirectionGetWithHttpInfo($year, $month, $day, $direction);
         return $response;
     }
 
     /**
-     * Operation recordingsYearMonthDayOutGetWithHttpInfo
+     * Operation recordingsYearMonthDayDirectionGetWithHttpInfo
      *
      * Get recordings list for specific for a day (with mp3)
      *
      * @param  int $year Years (1900 to current year) (required)
      * @param  int $month Month numeric 1 ot 12 (required)
      * @param  int $day Day numeric 1 ot 31 (required)
+     * @param  string $direction out or in (required)
      *
      * @throws \Swagger\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Swagger\Client\Model\RecordingList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function recordingsYearMonthDayOutGetWithHttpInfo($year, $month, $day)
+    public function recordingsYearMonthDayDirectionGetWithHttpInfo($year, $month, $day, $direction)
     {
         $returnType = '\Swagger\Client\Model\RecordingList';
-        $request = $this->recordingsYearMonthDayOutGetRequest($year, $month, $day);
+        $request = $this->recordingsYearMonthDayDirectionGetRequest($year, $month, $day, $direction);
 
         try {
             $options = $this->createHttpClientOption();
@@ -986,20 +988,21 @@ class RecordingsApi
     }
 
     /**
-     * Operation recordingsYearMonthDayOutGetAsync
+     * Operation recordingsYearMonthDayDirectionGetAsync
      *
      * Get recordings list for specific for a day (with mp3)
      *
      * @param  int $year Years (1900 to current year) (required)
      * @param  int $month Month numeric 1 ot 12 (required)
      * @param  int $day Day numeric 1 ot 31 (required)
+     * @param  string $direction out or in (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function recordingsYearMonthDayOutGetAsync($year, $month, $day)
+    public function recordingsYearMonthDayDirectionGetAsync($year, $month, $day, $direction)
     {
-        return $this->recordingsYearMonthDayOutGetAsyncWithHttpInfo($year, $month, $day)
+        return $this->recordingsYearMonthDayDirectionGetAsyncWithHttpInfo($year, $month, $day, $direction)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1008,21 +1011,22 @@ class RecordingsApi
     }
 
     /**
-     * Operation recordingsYearMonthDayOutGetAsyncWithHttpInfo
+     * Operation recordingsYearMonthDayDirectionGetAsyncWithHttpInfo
      *
      * Get recordings list for specific for a day (with mp3)
      *
      * @param  int $year Years (1900 to current year) (required)
      * @param  int $month Month numeric 1 ot 12 (required)
      * @param  int $day Day numeric 1 ot 31 (required)
+     * @param  string $direction out or in (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function recordingsYearMonthDayOutGetAsyncWithHttpInfo($year, $month, $day)
+    public function recordingsYearMonthDayDirectionGetAsyncWithHttpInfo($year, $month, $day, $direction)
     {
         $returnType = '\Swagger\Client\Model\RecordingList';
-        $request = $this->recordingsYearMonthDayOutGetRequest($year, $month, $day);
+        $request = $this->recordingsYearMonthDayDirectionGetRequest($year, $month, $day, $direction);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1062,37 +1066,44 @@ class RecordingsApi
     }
 
     /**
-     * Create request for operation 'recordingsYearMonthDayOutGet'
+     * Create request for operation 'recordingsYearMonthDayDirectionGet'
      *
      * @param  int $year Years (1900 to current year) (required)
      * @param  int $month Month numeric 1 ot 12 (required)
      * @param  int $day Day numeric 1 ot 31 (required)
+     * @param  string $direction out or in (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function recordingsYearMonthDayOutGetRequest($year, $month, $day)
+    protected function recordingsYearMonthDayDirectionGetRequest($year, $month, $day, $direction)
     {
         // verify the required parameter 'year' is set
         if ($year === null || (is_array($year) && count($year) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $year when calling recordingsYearMonthDayOutGet'
+                'Missing the required parameter $year when calling recordingsYearMonthDayDirectionGet'
             );
         }
         // verify the required parameter 'month' is set
         if ($month === null || (is_array($month) && count($month) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $month when calling recordingsYearMonthDayOutGet'
+                'Missing the required parameter $month when calling recordingsYearMonthDayDirectionGet'
             );
         }
         // verify the required parameter 'day' is set
         if ($day === null || (is_array($day) && count($day) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $day when calling recordingsYearMonthDayOutGet'
+                'Missing the required parameter $day when calling recordingsYearMonthDayDirectionGet'
+            );
+        }
+        // verify the required parameter 'direction' is set
+        if ($direction === null || (is_array($direction) && count($direction) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $direction when calling recordingsYearMonthDayDirectionGet'
             );
         }
 
-        $resourcePath = '/recordings/{year}/{month}/{day}/out';
+        $resourcePath = '/recordings/{year}/{month}/{day}/{direction}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1121,6 +1132,14 @@ class RecordingsApi
             $resourcePath = str_replace(
                 '{' . 'day' . '}',
                 ObjectSerializer::toPathValue($day),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($direction !== null) {
+            $resourcePath = str_replace(
+                '{' . 'direction' . '}',
+                ObjectSerializer::toPathValue($direction),
                 $resourcePath
             );
         }
