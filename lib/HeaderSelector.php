@@ -81,8 +81,6 @@ class HeaderSelector
     {
         if (count($accept) === 0 || (count($accept) === 1 && $accept[0] === '')) {
             return null;
-        } elseif (preg_grep("/application\/json/i", $accept)) {
-            return 'application/json';
         } else {
             return implode(',', $accept);
         }
@@ -98,8 +96,6 @@ class HeaderSelector
     private function selectContentTypeHeader($contentType)
     {
         if (count($contentType) === 0 || (count($contentType) === 1 && $contentType[0] === '')) {
-            return 'application/json';
-        } elseif (preg_grep("/application\/json/i", $contentType)) {
             return 'application/json';
         } else {
             return implode(',', $contentType);

@@ -1,15 +1,18 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "version" : "1.0",
     "title" : "Ubity API",
     "description" : "*** DISCLAMER *** The SDK is not support by Ubity. The Ubity API allows you to initiate calls, send text messages (SMS), retrieve call recordings, get a user's phone presence status, and a whole lot more!",
     "contact" : {
       "email" : "dev@ubity.com"
-    }
+    },
+    "version" : "1.0.0"
   },
   "servers" : [ {
     "url" : "https://api.ubity.com"
+  } ],
+  "security" : [ {
+    "apiKey" : [ ]
   } ],
   "tags" : [ {
     "name" : "Calls"
@@ -33,8 +36,7 @@
                 "$ref" : "#/components/schemas/CallRequest"
               }
             }
-          },
-          "description" : ""
+          }
         },
         "responses" : {
           "200" : {
@@ -53,7 +55,19 @@
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
@@ -88,34 +102,27 @@
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
     },
     "/call_answer" : {
       "post" : {
+        "tags" : [ "Calls" ],
         "summary" : "Answering a call",
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json;version=0" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/AnsweringCallResponse"
-                }
-              },
-              "application/xml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/AnsweringCallResponse"
-                }
-              }
-            }
-          },
-          "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
-          }
-        },
         "requestBody" : {
           "content" : {
             "application/json;version=0" : {
@@ -125,32 +132,44 @@
             }
           }
         },
-        "tags" : [ "Calls" ]
-      }
-    },
-    "/call_send_to_voicemail" : {
-      "post" : {
-        "summary" : "Send a call to voicemail (while ringing)",
         "responses" : {
           "200" : {
             "description" : "OK",
             "content" : {
               "application/json;version=0" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/SendCallVoiceMailResponse"
+                  "$ref" : "#/components/schemas/AnsweringCallResponse"
                 }
               },
               "application/xml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/SendCallVoiceMailResponse"
+                  "$ref" : "#/components/schemas/AnsweringCallResponse"
                 }
               }
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
-        },
+        }
+      }
+    },
+    "/call_send_to_voicemail" : {
+      "post" : {
+        "tags" : [ "Calls" ],
+        "summary" : "Send a call to voicemail (while ringing)",
         "requestBody" : {
           "content" : {
             "application/json;version=0" : {
@@ -158,35 +177,46 @@
                 "$ref" : "#/components/schemas/SendCallVoiceMailRequest"
               }
             }
-          },
-          "description" : ""
+          }
         },
-        "tags" : [ "Calls" ]
-      }
-    },
-    "/call_hangup" : {
-      "post" : {
-        "summary" : "Hangup a call",
         "responses" : {
           "200" : {
             "description" : "OK",
             "content" : {
               "application/json;version=0" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/HangupCallResponse"
+                  "$ref" : "#/components/schemas/SendCallVoiceMailResponse"
                 }
               },
               "application/xml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/HangupCallResponse"
+                  "$ref" : "#/components/schemas/SendCallVoiceMailResponse"
                 }
               }
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
-        },
+        }
+      }
+    },
+    "/call_hangup" : {
+      "post" : {
+        "tags" : [ "Calls" ],
+        "summary" : "Hangup a call",
         "requestBody" : {
           "content" : {
             "application/json;version=0" : {
@@ -196,13 +226,44 @@
             }
           }
         },
-        "tags" : [ "Calls" ]
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HangupCallResponse"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/HangupCallResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/extensions" : {
       "get" : {
-        "summary" : "Get extensions list",
         "tags" : [ "Extensions" ],
+        "summary" : "Get extensions list",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -220,15 +281,59 @@
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
     },
     "/sms/send" : {
       "get" : {
-        "summary" : "Text Messages (SMS)",
         "tags" : [ "Sms" ],
+        "summary" : "Text Messages (SMS)",
+        "description" : "This endpoint delivers a text message (SMS) to a mobile phone number.",
+        "parameters" : [ {
+          "name" : "from_number",
+          "in" : "query",
+          "description" : "Phone number of the sender (ie. 5551112222)",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "to_number",
+          "in" : "query",
+          "description" : "Phone number of the recipient (ie. 5551113333)",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "message",
+          "in" : "query",
+          "description" : "\tBody of the message",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -246,42 +351,37 @@
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
-        },
-        "description" : "This endpoint delivers a text message (SMS) to a mobile phone number.",
-        "parameters" : [ {
-          "schema" : {
-            "type" : "integer"
-          },
-          "in" : "query",
-          "name" : "from_number",
-          "description" : "Phone number of the sender (ie. 5551112222)",
-          "required" : true
-        }, {
-          "schema" : {
-            "type" : "integer"
-          },
-          "in" : "query",
-          "name" : "to_number",
-          "description" : "Phone number of the recipient (ie. 5551113333)",
-          "required" : true
-        }, {
-          "schema" : {
-            "type" : "string"
-          },
-          "in" : "query",
-          "name" : "message",
-          "description" : "\tBody of the message",
-          "required" : true
-        } ]
+        }
       }
     },
     "/sms" : {
       "post" : {
+        "tags" : [ "Sms" ],
         "summary" : "Text Messages (SMS)",
         "description" : "This endpoint delivers a text message (SMS) to a mobile phone number.",
-        "tags" : [ "Sms" ],
+        "requestBody" : {
+          "content" : {
+            "application/json;version=1" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SmsRequest"
+              }
+            }
+          }
+        },
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -299,14 +399,17 @@
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
-          }
-        },
-        "requestBody" : {
-          "content" : {
-            "application/json;version=1" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/SmsRequest"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
               }
             }
           }
@@ -315,28 +418,64 @@
     },
     "/recordings" : {
       "get" : {
-        "summary" : "Get recordings list",
         "tags" : [ "Recordings" ],
+        "summary" : "Get recordings list",
         "description" : " This endpoint allows you to get a list of your call recordings. The recordings are listed by year, month, day, call direction.\nThe legacy behaviour of that endpoint (when you request without any header) is to give you the list formated in HTML. Using that HTML view, you can use your browser to access the recordings or you can use a web crawler like wget and download all your recordings in a batch.",
         "responses" : {
           "200" : {
-            "$ref" : "#/components/responses/RecordingsList"
+            "description" : "OK",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecordingList"
+                },
+                "example" : {
+                  "api_key" : "KKKK",
+                  "code" : 200,
+                  "diagnostic" : "Success",
+                  "names" : [ [ "http://api.ubity.com/recordings/2017?key=KKKK", "2017" ], [ "http://api.ubity.com/recordings/2018?key=KKKK", "2018" ] ],
+                  "stamp" : "2018-02-15 11:27",
+                  "title" : "",
+                  "url" : "http://api.ubity.com/recordings?key=KKKK",
+                  "version" : 0
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecordingList"
+                }
+              }
+            }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
     },
     "/recordings/{year}" : {
       "get" : {
-        "summary" : "Get recordings list for specific year",
         "tags" : [ "Recordings" ],
+        "summary" : "Get recordings list for specific year",
         "parameters" : [ {
           "name" : "year",
           "in" : "path",
-          "required" : true,
           "description" : "Years (1900 to current year)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "integer",
             "format" : "int32"
@@ -344,23 +483,59 @@
         } ],
         "responses" : {
           "200" : {
-            "$ref" : "#/components/responses/RecordingsList"
+            "description" : "OK",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecordingList"
+                },
+                "example" : {
+                  "api_key" : "KKKK",
+                  "code" : 200,
+                  "diagnostic" : "Success",
+                  "names" : [ [ "http://api.ubity.com/recordings/2017?key=KKKK", "2017" ], [ "http://api.ubity.com/recordings/2018?key=KKKK", "2018" ] ],
+                  "stamp" : "2018-02-15 11:27",
+                  "title" : "",
+                  "url" : "http://api.ubity.com/recordings?key=KKKK",
+                  "version" : 0
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecordingList"
+                }
+              }
+            }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
     },
     "/recordings/{year}/{month}" : {
       "get" : {
-        "summary" : "Get recordings list for a specific month",
         "tags" : [ "Recordings" ],
+        "summary" : "Get recordings list for a specific month",
         "parameters" : [ {
           "name" : "year",
           "in" : "path",
-          "required" : true,
           "description" : "Years (1900 to current year)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "integer",
             "format" : "int32"
@@ -368,8 +543,10 @@
         }, {
           "name" : "month",
           "in" : "path",
-          "required" : true,
           "description" : "Month numeric 1 ot 12",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "integer",
             "format" : "int32"
@@ -377,24 +554,60 @@
         } ],
         "responses" : {
           "200" : {
-            "$ref" : "#/components/responses/RecordingsList"
+            "description" : "OK",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecordingList"
+                },
+                "example" : {
+                  "api_key" : "KKKK",
+                  "code" : 200,
+                  "diagnostic" : "Success",
+                  "names" : [ [ "http://api.ubity.com/recordings/2017?key=KKKK", "2017" ], [ "http://api.ubity.com/recordings/2018?key=KKKK", "2018" ] ],
+                  "stamp" : "2018-02-15 11:27",
+                  "title" : "",
+                  "url" : "http://api.ubity.com/recordings?key=KKKK",
+                  "version" : 0
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RecordingList"
+                }
+              }
+            }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/recordings/{year}/{month}/{day}/out" : {
+    "/recordings/{year}/{month}/{day}/{direction}" : {
       "get" : {
+        "tags" : [ "Recordings" ],
         "summary" : "Get recordings list for specific for a day (with mp3)",
         "description" : "Get one recording from that list\nYou can just follow the URL available in the list. (headers are not needed)\nhttp://api.ubity.com/recordings/2018/02/15/out/43_20180215105055_15551113333_vgw99-1518709855.9602776.mp3?key=KKKK",
-        "tags" : [ "Recordings" ],
         "parameters" : [ {
           "name" : "year",
           "in" : "path",
-          "required" : true,
           "description" : "Years (1900 to current year)",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "integer",
             "format" : "int32"
@@ -402,8 +615,10 @@
         }, {
           "name" : "month",
           "in" : "path",
-          "required" : true,
           "description" : "Month numeric 1 ot 12",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "integer",
             "format" : "int32"
@@ -411,11 +626,23 @@
         }, {
           "name" : "day",
           "in" : "path",
-          "required" : true,
           "description" : "Day numeric 1 ot 31",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "integer",
             "format" : "int32"
+          }
+        }, {
+          "name" : "direction",
+          "in" : "path",
+          "description" : "out or in",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
           }
         } ],
         "responses" : {
@@ -445,16 +672,28 @@
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
     },
     "/recording" : {
       "post" : {
+        "tags" : [ "Recordings" ],
         "summary" : "Get a specific call recording from and ID",
         "description" : "In some case, you would want to download a recording from and ID received from a callback. This endpoint allows your application to retrieve the recording of a specific call using its callid. The response is the actual MP3 file, with a Content-Type: audio/mpeg header.",
-        "tags" : [ "Recordings" ],
         "requestBody" : {
           "content" : {
             "application/json;version=0" : {
@@ -477,63 +716,25 @@
             }
           },
           "401" : {
-            "$ref" : "#/components/responses/UnAuthorized"
+            "description" : "Invalid input",
+            "content" : {
+              "application/json;version=0" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UnAuthorized"
+                }
+              }
+            }
           }
         }
       }
     }
   },
   "components" : {
-    "securitySchemes" : {
-      "apiKey" : {
-        "type" : "apiKey",
-        "in" : "query",
-        "name" : "key",
-        "description" : "Your API key"
-      }
-    },
-    "responses" : {
-      "UnAuthorized" : {
-        "description" : "Invalid input",
-        "content" : {
-          "application/json;version=0" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/UnAuthorized"
-            }
-          },
-          "application/xml" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/UnAuthorized"
-            }
-          }
-        }
-      },
-      "RecordingsList" : {
-        "description" : "OK",
-        "content" : {
-          "application/json;version=0" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/RecordingList"
-            },
-            "example" : {
-              "api_key" : "KKKK",
-              "code" : 200,
-              "diagnostic" : "Success",
-              "names" : [ [ "http://api.ubity.com/recordings/2017?key=KKKK", "2017" ], [ "http://api.ubity.com/recordings/2018?key=KKKK", "2018" ] ],
-              "stamp" : "2018-02-15 11:27",
-              "title" : "",
-              "url" : "http://api.ubity.com/recordings?key=KKKK",
-              "version" : 0
-            }
-          },
-          "application/xml" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/RecordingList"
-            }
-          }
-        }
-      }
-    },
     "schemas" : {
       "SpecificRecordingRequest" : {
         "type" : "object",
@@ -548,14 +749,14 @@
         "type" : "object",
         "properties" : {
           "names" : {
-            "type" : "array",
-            "minItems" : 2,
             "maxItems" : 2,
+            "minItems" : 2,
+            "type" : "array",
             "items" : {
               "type" : "array",
               "items" : {
-                "minItems" : 2,
                 "maxItems" : 2,
+                "minItems" : 2,
                 "type" : "string"
               }
             }
@@ -564,22 +765,22 @@
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "version" : {
@@ -588,8 +789,8 @@
         }
       },
       "CallRequest" : {
-        "type" : "object",
         "required" : [ "exten", "number" ],
+        "type" : "object",
         "properties" : {
           "enten" : {
             "type" : "integer",
@@ -597,13 +798,13 @@
           },
           "number" : {
             "type" : "integer",
-            "format" : "int64",
-            "description" : "\tThe extension or phone number to call (ie. 5145551212)"
+            "description" : "\tThe extension or phone number to call (ie. 5145551212)",
+            "format" : "int64"
           },
           "redirect" : {
+            "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
             "type" : "string",
-            "description" : "The HTTP redirect code and URL that the API must answer (usefull from a web browser)",
-            "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$"
+            "description" : "The HTTP redirect code and URL that the API must answer (usefull from a web browser)"
           },
           "cid_name" : {
             "type" : "string",
@@ -611,8 +812,8 @@
           },
           "cid_num" : {
             "type" : "integer",
-            "format" : "int64",
-            "description" : "Let overdide the default callerid number (you must own that number at Ubity)"
+            "description" : "Let overdide the default callerid number (you must own that number at Ubity)",
+            "format" : "int64"
           },
           "autoanswer" : {
             "type" : "boolean",
@@ -632,30 +833,30 @@
       "Call" : {
         "properties" : {
           "api_call_uuid" : {
+            "pattern" : "^\\w{8}(-\\w{4}){3}-\\w{12}$",
             "type" : "string",
-            "description" : "The api_call_uuid can be found or used with the following method (or because /call was used to trigger a call and you got it in response).",
-            "pattern" : "^\\w{8}(-\\w{4}){3}-\\w{12}$"
+            "description" : "The api_call_uuid can be found or used with the following method (or because /call was used to trigger a call and you got it in response)."
           },
           "api_key" : {
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "version" : {
@@ -664,32 +865,32 @@
         }
       },
       "UnAuthorized" : {
-        "xml" : {
-          "name" : "ubity-reply"
-        },
         "properties" : {
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "version" : {
             "type" : "string"
           }
+        },
+        "xml" : {
+          "name" : "ubity-reply"
         }
       },
       "RunningCall" : {
@@ -699,53 +900,29 @@
           "calls" : {
             "type" : "object",
             "additionalProperties" : {
-              "type" : "object",
-              "properties" : {
-                "api_call_uuid" : {
-                  "type" : "string",
-                  "description" : "The api_call_uuid can be found or used with the following method (or because /call was used to trigger a call and you got it in response).",
-                  "pattern" : "^\\w{8}(-\\w{4}){3}-\\w{12}$"
-                },
-                "answered" : {
-                  "type" : "boolean"
-                },
-                "from_callerid_name" : {
-                  "type" : "string"
-                },
-                "from_callerid_num" : {
-                  "type" : "integer",
-                  "format" : "int64"
-                },
-                "to_callerid_name" : {
-                  "type" : "string"
-                },
-                "to_callerid_num" : {
-                  "type" : "integer",
-                  "format" : "int64"
-                }
-              }
+              "$ref" : "#/components/schemas/RunningCall_calls"
             }
           },
           "version" : {
             "type" : "string"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "api_key" : {
@@ -761,22 +938,22 @@
             "type" : "string"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "api_key" : {
@@ -821,22 +998,22 @@
             "type" : "string"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "api_key" : {
@@ -847,7 +1024,6 @@
       "HangupCallRequest" : {
         "title" : "HangupCallRequest",
         "type" : "object",
-        "description" : "The phone or softphone bound to you extension MUST understand the auto-answer SIP infos packet. Alert-Info: info=alert-autoanswer",
         "properties" : {
           "call" : {
             "type" : "string",
@@ -856,7 +1032,8 @@
           "" : {
             "type" : "string"
           }
-        }
+        },
+        "description" : "The phone or softphone bound to you extension MUST understand the auto-answer SIP infos packet. Alert-Info: info=alert-autoanswer"
       },
       "HangupCallResponse" : {
         "title" : "HangupCallResponse",
@@ -865,8 +1042,7 @@
           "id" : {
             "type" : "string"
           }
-        },
-        "description" : ""
+        }
       },
       "Extension" : {
         "type" : "object",
@@ -898,22 +1074,22 @@
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "version" : {
@@ -923,24 +1099,24 @@
       },
       "SmsRequest" : {
         "title" : "SmsRequest",
+        "required" : [ "from_number", "message", "to_number" ],
         "type" : "object",
         "properties" : {
           "from_number" : {
             "type" : "integer",
-            "format" : "int64",
-            "description" : "Phone number of the sender (ie. 5551112222)"
+            "description" : "Phone number of the sender (ie. 5551112222)",
+            "format" : "int64"
           },
           "to_number" : {
             "type" : "integer",
-            "format" : "int64",
-            "description" : "Phone number of the recipient (ie. 5551113333)"
+            "description" : "Phone number of the recipient (ie. 5551113333)",
+            "format" : "int64"
           },
           "message" : {
             "type" : "string",
             "description" : "Body of the message"
           }
         },
-        "required" : [ "from_number", "to_number", "message" ],
         "description" : "Please note that the from_number parameter needs to be a phone number that belongs to your account and has the SMS service enabled."
       },
       "SmsResponse" : {
@@ -948,37 +1124,28 @@
         "type" : "object",
         "properties" : {
           "sms" : {
-            "type" : "object",
-            "properties" : {
-              "smsid" : {
-                "type" : "string",
-                "pattern" : "^\\\\w{8}(-\\\\w{4}){3}-\\\\w{12}$"
-              },
-              "success" : {
-                "type" : "boolean"
-              }
-            }
+            "$ref" : "#/components/schemas/SmsResponse_sms"
           },
           "version" : {
             "type" : "string"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "api_key" : {
@@ -994,22 +1161,22 @@
             "type" : "string"
           },
           "code" : {
-            "type" : "integer",
-            "minimum" : 100,
             "maximum" : 599,
+            "minimum" : 100,
+            "type" : "integer",
             "description" : "Http code"
           },
           "diagnostic" : {
             "type" : "string"
           },
           "stamp" : {
-            "type" : "string",
             "pattern" : "^\\d{4}-[0-1]\\d-[0-3]\\d [0-1]\\d:[0-5]\\d$",
+            "type" : "string",
             "description" : "Date YYYY-MM-DD HH:II"
           },
           "url" : {
-            "type" : "string",
             "pattern" : "^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+            "type" : "string",
             "description" : "Called url"
           },
           "version" : {
@@ -1020,10 +1187,96 @@
             "items" : { }
           }
         }
+      },
+      "RunningCall_calls" : {
+        "type" : "object",
+        "properties" : {
+          "api_call_uuid" : {
+            "pattern" : "^\\w{8}(-\\w{4}){3}-\\w{12}$",
+            "type" : "string",
+            "description" : "The api_call_uuid can be found or used with the following method (or because /call was used to trigger a call and you got it in response)."
+          },
+          "answered" : {
+            "type" : "boolean"
+          },
+          "from_callerid_name" : {
+            "type" : "string"
+          },
+          "from_callerid_num" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "to_callerid_name" : {
+            "type" : "string"
+          },
+          "to_callerid_num" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "SmsResponse_sms" : {
+        "type" : "object",
+        "properties" : {
+          "smsid" : {
+            "pattern" : "^\\\\w{8}(-\\\\w{4}){3}-\\\\w{12}$",
+            "type" : "string"
+          },
+          "success" : {
+            "type" : "boolean"
+          }
+        }
+      }
+    },
+    "responses" : {
+      "UnAuthorized" : {
+        "description" : "Invalid input",
+        "content" : {
+          "application/json;version=0" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UnAuthorized"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UnAuthorized"
+            }
+          }
+        }
+      },
+      "RecordingsList" : {
+        "description" : "OK",
+        "content" : {
+          "application/json;version=0" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RecordingList"
+            },
+            "example" : {
+              "api_key" : "KKKK",
+              "code" : 200,
+              "diagnostic" : "Success",
+              "names" : [ [ "http://api.ubity.com/recordings/2017?key=KKKK", "2017" ], [ "http://api.ubity.com/recordings/2018?key=KKKK", "2018" ] ],
+              "stamp" : "2018-02-15 11:27",
+              "title" : "",
+              "url" : "http://api.ubity.com/recordings?key=KKKK",
+              "version" : 0
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RecordingList"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "apiKey" : {
+        "type" : "apiKey",
+        "description" : "Your API key",
+        "name" : "key",
+        "in" : "query"
       }
     }
-  },
-  "security" : [ {
-    "apiKey" : [ ]
-  } ]
+  }
 }
